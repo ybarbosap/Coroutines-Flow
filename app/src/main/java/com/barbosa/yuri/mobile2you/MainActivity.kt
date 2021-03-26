@@ -1,5 +1,7 @@
 package com.barbosa.yuri.mobile2you
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +60,8 @@ class MainActivity : AppCompatActivity(), MovieDetailPresenter.Companion.MoviePr
             .into(binding.movieCover)
         binding.rvMovieDetail.adapter = MovieAdapter(response.similarMovie.results)
         binding.voteCount.text = "${response.movie.voteCount.toString()} Likes"
+        binding.popularityCount.text = "${response.movie.popularity} views"
+        binding.movieTitle.text = response.movie.title
     }
 
     override fun onFailure() {

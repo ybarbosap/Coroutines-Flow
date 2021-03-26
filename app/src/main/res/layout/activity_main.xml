@@ -54,8 +54,8 @@
 
         <ImageView
             android:id="@+id/image_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/ic_baseline_favorite_24"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/movie_title"
@@ -69,6 +69,25 @@
             android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="@id/image_likes"
             app:layout_constraintStart_toEndOf="@id/image_likes"
+            tools:text="Hello"/>
+
+        <ImageView
+            android:id="@+id/popularity_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            app:layout_constraintStart_toEndOf="@id/vote_count"
+            app:layout_constraintTop_toTopOf="@id/image_likes"
+            android:src="@drawable/popularity_icon"/>
+
+        <TextView
+            android:id="@+id/popularity_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintStart_toEndOf="@id/popularity_icon"
+            app:layout_constraintTop_toTopOf="@id/popularity_icon"
+            android:textColor="@android:color/white"
             tools:text="Hello"/>
 
         <androidx.constraintlayout.widget.Guideline
