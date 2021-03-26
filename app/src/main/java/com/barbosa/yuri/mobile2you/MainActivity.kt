@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.barbosa.yuri.mobile2you.databinding.ActivityMainBinding
+import com.barbosa.yuri.mobile2you.datasource.TheMovieDbApiHelper
 import com.barbosa.yuri.mobile2you.features.moviedetail.adapter.MovieAdapter
 import com.barbosa.yuri.mobile2you.features.moviedetail.presentation.MovieDetailPresenter
 import com.barbosa.yuri.mobile2you.features.moviedetail.repositories.MovieRepository
@@ -52,15 +54,22 @@ class MainActivity : AppCompatActivity(), MovieDetailPresenter.Companion.MoviePr
 
     override fun onResume() {
         super.onResume()
-        presenter.getMovie(550)
+        presenter.getMovie(299536)
+    }
+
+    private fun showIcons() {
+        binding.favoriteBtn.visibility = View.VISIBLE
+        binding.popularityIcon.visibility = View.VISIBLE
+        binding.imageLikes.visibility = View.VISIBLE
     }
 
     override fun onSuccess(response: Response) {
-        Picasso.get().load("https://image.tmdb.org/t/p/w500/${response.movie.posterPath}")
+        Picasso.get().load("${TheMovieDbApiHelper.IMAGE_PATH}${response.movie.posterPath}")
             .into(binding.movieCover)
         binding.rvMovieDetail.adapter = MovieAdapter(response.similarMovie.results)
-        binding.voteCount.text = "${response.movie.voteCount.toString()} Likes"
-        binding.popularityCount.text = "${response.movie.popularity} views"
+        binding.voteCount.text = getString(R.string.likes, response.movie.voteCount)
+        binding.popularityCount.text =
+            getString(R.string.popularity, response.movie.popularity.toString())
         binding.movieTitle.text = response.movie.title
     }
 
@@ -69,6 +78,7 @@ class MainActivity : AppCompatActivity(), MovieDetailPresenter.Companion.MoviePr
     }
 
     override fun onComplete() {
-        print("jsadfasdfs")
+        binding.progress.visibility = View.GONE
+        showIcons()
     }
 }

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.barbosa.yuri.mobile2you.R
 import com.barbosa.yuri.mobile2you.databinding.SimilarItemBinding
+import com.barbosa.yuri.mobile2you.datasource.TheMovieDbApiHelper
 import com.barbosa.yuri.mobile2you.models.Result
 import com.squareup.picasso.Picasso
 
@@ -14,7 +15,7 @@ fun String.releaseDateFormat(): String {
     return split[0]
 }
 class MovieAdapter(
-    val results: List<Result>,
+    private val results: List<Result>,
 ) : RecyclerView.Adapter<MovieAdapter.VH>() {
     private lateinit var binding: SimilarItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -32,19 +33,12 @@ class MovieAdapter(
         private var imageCover = itemBinding.similarCover
         private var title = itemBinding.similarTitle
         private var subtitle = itemBinding.similarSubtitle
+        private var ctx = itemView.context
         fun bind(result: Result) {
-            Picasso.get().load("https://image.tmdb.org/t/p/w500/${result.posterPath}")
+            Picasso.get().load("${TheMovieDbApiHelper.IMAGE_PATH}${result.posterPath}")
                 .into(imageCover)
-            title.text = result.title.toString()
-            /*
-            var genre = ""
-            result.genres?.let {
-                for (g in it) {
-                    genre += "${g.name},"
-                }
-            }
-            */
-            subtitle.text = "${result.releaseDate.releaseDateFormat()}"
+            title.text = result.title
+            subtitle.text = ctx.getString(R.string.similar_subtitle, result.releaseDate.releaseDateFormat())
         }
     }
 }

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Mobile2You</string>
+    <string name="likes">%d Likes</string>
+    <string name="popularity">%s Views</string>
+    <string name="similar_subtitle">%s Views</string>
 </resources>
