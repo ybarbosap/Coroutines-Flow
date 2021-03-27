@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginTop="16dp"
@@ -11,8 +10,9 @@
         android:id="@+id/similar_cover"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/image_cover"
         android:scaleType="centerCrop"
-        android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="w, 3:4"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,6 @@
         android:id="@+id/similar_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:text="asdasdasd"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/similar_title"
         app:layout_constraintTop_toBottomOf="@+id/similar_title" />
@@ -40,10 +39,11 @@
 
     <ImageButton
         android:id="@+id/similar_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/gray_dark"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/black_background"
+        android:contentDescription="@string/check_button"
         android:src="@drawable/ic_baseline_check_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

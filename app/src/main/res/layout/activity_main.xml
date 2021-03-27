@@ -4,31 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_dark"
-    >
+    android:background="@color/black_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".features.moviedetail.MainActivity">
 
-
-        <ImageView
+        <RelativeLayout
             android:id="@+id/movie_cover"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <ImageView
+                android:id="@+id/movie_cover_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/cover_image_content_description" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/image_cover_shadow"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/movie_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:maxLines="2"
             android:textColor="@android:color/white"
@@ -40,33 +50,35 @@
 
 
         <ImageButton
-            android:id="@+id/favorite_btn"
+            android:id="@+id/favorite_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/gray_dark"
+            android:background="@color/black_background"
             android:src="@drawable/ic_baseline_favorite_24"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_cover" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_cover"
+            android:contentDescription="@string/likes_icon_content_description" />
 
 
         <ImageView
             android:id="@+id/image_likes"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_baseline_favorite_24"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/movie_title"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_title"
+            android:contentDescription="@string/toggle_like" />
 
         <TextView
             android:id="@+id/vote_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@id/image_likes"
             app:layout_constraintTop_toTopOf="@id/image_likes" />
@@ -75,17 +87,18 @@
             android:id="@+id/popularity_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="48dp"
+            android:layout_marginStart="48dp"
             android:src="@drawable/popularity_icon"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/vote_count"
-            app:layout_constraintTop_toTopOf="@id/image_likes" />
+            app:layout_constraintTop_toTopOf="@id/image_likes"
+            android:contentDescription="@string/popularity_icon" />
 
         <TextView
             android:id="@+id/popularity_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@id/popularity_icon"
             app:layout_constraintTop_toTopOf="@id/popularity_icon" />
@@ -99,7 +112,7 @@
             app:layout_constraintGuide_percent="0.55" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movie_detail"
+            android:id="@+id/similar_movies_recycler_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,6 +121,17 @@
             app:layout_constraintTop_toBottomOf="@id/image_likes"
             tools:itemCount="50"
             tools:listitem="@layout/similar_item" />
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_button"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="@+id/movie_cover"
+            app:layout_constraintTop_toTopOf="@+id/movie_cover"
+            android:contentDescription="@string/back_button" />
 
         <ProgressBar
             android:id="@+id/progress"

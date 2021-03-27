@@ -3,4 +3,12 @@
     <string name="likes">%d Likes</string>
     <string name="popularity">%s Views</string>
     <string name="similar_subtitle">%s Views</string>
+    <string name="error_message">Erro ao carregar informações</string>
+    <string name="cover_image_content_description">Cover Image</string>
+    <string name="likes_icon_content_description">Likes icon</string>
+    <string name="toggle_like">Toggle like</string>
+    <string name="popularity_icon">Popularity icon</string>
+    <string name="back_button">Back button</string>
+    <string name="image_cover">Image cover</string>
+    <string name="check_button">Check button</string>
 </resources>

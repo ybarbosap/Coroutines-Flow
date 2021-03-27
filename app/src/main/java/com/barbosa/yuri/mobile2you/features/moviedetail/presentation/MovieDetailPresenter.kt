@@ -1,41 +1,33 @@
 package com.barbosa.yuri.mobile2you.features.moviedetail.presentation
 
-import com.barbosa.yuri.mobile2you.features.moviedetail.repositories.MovieRepository
-import com.barbosa.yuri.mobile2you.features.moviedetail.repositories.SimilarRepository
-import com.barbosa.yuri.mobile2you.models.Movie
-import com.barbosa.yuri.mobile2you.models.Response
+import com.barbosa.yuri.mobile2you.features.moviedetail.MovieDetailContract
+import com.barbosa.yuri.mobile2you.features.moviedetail.MovieDetailViewModel
+import com.barbosa.yuri.mobile2you.features.moviedetail.repository.MovieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MovieDetailPresenter(
-    private val similarRepository: SimilarRepository,
     private val movieRepository: MovieRepository,
-    private val listener: MoviePresenterContract
-) {
+    private val view: MovieDetailContract.View,
+): MovieDetailContract.Presenter {
 
-    fun getMovie(movieId: Int) {
-        CoroutineScope(Dispatchers.IO).launch{
-            val movie: Movie? = movieRepository.getMovie(movieId)
-            val similar = similarRepository.getSimilar(movieId)
-            withContext(Dispatchers.Main){
+    /**
+     * Busca detelhes e filmes similares do filme
+     */
+    override fun getMovieInfo(movieId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val movie = movieRepository.getMovie(movieId)
+            val similar = movieRepository.getSimilarMovies(movieId)
+            withContext(Dispatchers.Main) {
                 if (movie != null && similar != null) {
-                    val response = Response(similar!!, movie!!)
-                    listener.onSuccess(response)
-                }else{
-                    listener.onFailure()
+                    val response = MovieDetailViewModel(similar, movie)
+                    view.displayMovieDetails(response)
+                } else {
+                    view.onFailure()
                 }
-                listener.onComplete()
             }
-        }
-    }
-
-    companion object {
-        interface MoviePresenterContract {
-            fun onSuccess(response: Response)
-            fun onFailure()
-            fun onComplete()
         }
     }
 }
