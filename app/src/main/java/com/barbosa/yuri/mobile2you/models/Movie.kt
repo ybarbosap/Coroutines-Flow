@@ -1,6 +1,5 @@
 package com.barbosa.yuri.mobile2you.models
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
@@ -13,7 +12,7 @@ data class Movie(
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("genres")
-    val genres: List<Genre>,
+    val genres: List<Genre>?,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")
@@ -53,5 +52,5 @@ data class Movie(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int,
 )

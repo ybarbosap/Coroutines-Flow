@@ -1,30 +1,29 @@
 package com.barbosa.yuri.mobile2you.datasource
 
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 
-class RetrofitClient {
-    companion object {
-        val instance: Retrofit = Retrofit.Builder()
-            .baseUrl(TheMovieDbApiHelper.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient.Builder()
-                .addInterceptor { chain ->
-                    val original = chain.request()
+object RetrofitClient {
+    private const val BASE_URL = "https://api.themoviedb.org/3/"
+    private const val API_KEY = "7f429a0f8d857adaf461d310c4883303"
+    const val IMAGE_PATH = "https://image.tmdb.org/t/p/w500/"
 
-                    val url = original.url().newBuilder()
-                        .addQueryParameter("api_key", TheMovieDbApiHelper.API_KEY)
-                        .build()
+    val instance: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val original = chain.request()
 
-                    val requestBuilder = original.newBuilder().url(url)
-                    val request = requestBuilder.build()
+                val url = original.url().newBuilder()
+                    .addQueryParameter("api_key", API_KEY)
+                    .build()
 
-                    chain.proceed(request)
-                }.build())
-            .build()
-    }
+                val requestBuilder = original.newBuilder().url(url)
+                val request = requestBuilder.build()
+
+                chain.proceed(request)
+            }.build())
+        .build()
 }

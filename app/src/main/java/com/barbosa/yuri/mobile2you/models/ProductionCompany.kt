@@ -1,6 +1,5 @@
 package com.barbosa.yuri.mobile2you.models
 
-
 import com.google.gson.annotations.SerializedName
 
 data class ProductionCompany(
@@ -11,5 +10,5 @@ data class ProductionCompany(
     @SerializedName("name")
     val name: String,
     @SerializedName("origin_country")
-    val originCountry: String
+    val originCountry: String,
 )

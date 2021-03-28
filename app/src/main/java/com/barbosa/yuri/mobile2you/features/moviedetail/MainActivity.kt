@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.barbosa.yuri.mobile2you.R
 import com.barbosa.yuri.mobile2you.databinding.ActivityMainBinding
-import com.barbosa.yuri.mobile2you.datasource.TheMovieDbApiHelper
-import com.barbosa.yuri.mobile2you.features.moviedetail.adapter.MovieAdapter
-import com.barbosa.yuri.mobile2you.features.moviedetail.presentation.MovieDetailPresenter
-import com.barbosa.yuri.mobile2you.features.moviedetail.repository.MovieRepository
+import com.barbosa.yuri.mobile2you.datasource.RetrofitClient
+import com.barbosa.yuri.mobile2you.datasource.repositories.MovieRepository
+import com.barbosa.yuri.mobile2you.models.Movie
+import com.barbosa.yuri.mobile2you.models.SimilarMovies
 import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -27,14 +27,9 @@ class MainActivity : AppCompatActivity(), MovieDetailContract.View {
         binding.similarMoviesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.similarMoviesRecyclerView.adapter = MovieAdapter(mutableListOf())
 
-        binding.favoriteButton.setOnClickListener {
-            toggleFavorite()
-        }
+        binding.favoriteButton.setOnClickListener { toggleFavorite() }
 
-        presenter = MovieDetailPresenter(
-            MovieRepository(),
-            this
-        )
+        presenter = MovieDetailPresenter(MovieRepository(), this)
 
         presenter.getMovieInfo(299536)
     }
@@ -54,19 +49,20 @@ class MainActivity : AppCompatActivity(), MovieDetailContract.View {
         binding.favoriteButton.visibility = View.VISIBLE
         binding.popularityIcon.visibility = View.VISIBLE
         binding.imageLikes.visibility = View.VISIBLE
+        binding.backButton.visibility = View.VISIBLE
     }
 
-    override fun displayMovieDetails(movieDetailViewModel: MovieDetailViewModel) {
+    override fun displayMovieDetails(similarMovies: SimilarMovies, movie: Movie) {
         Picasso.get()
-            .load("${TheMovieDbApiHelper.IMAGE_PATH}${movieDetailViewModel.movie.posterPath}")
+            .load("${RetrofitClient.IMAGE_PATH}${movie.posterPath}")
             .into(binding.movieCoverImage)
 
         binding.similarMoviesRecyclerView.adapter =
-            MovieAdapter(movieDetailViewModel.similarMovies.results)
-        binding.voteCount.text = getString(R.string.likes, movieDetailViewModel.movie.voteCount)
+            MovieAdapter(similarMovies.results)
+        binding.voteCount.text = getString(R.string.likes, movie.voteCount)
         binding.popularityCount.text =
-            getString(R.string.popularity, movieDetailViewModel.movie.popularity.toString())
-        binding.movieTitle.text = movieDetailViewModel.movie.title
+            getString(R.string.popularity, movie.popularity.toString())
+        binding.movieTitle.text = movie.title
         binding.progress.visibility = View.GONE
         showIcons()
     }

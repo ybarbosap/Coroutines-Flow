@@ -1,6 +1,5 @@
 package com.barbosa.yuri.mobile2you.models
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Genre(

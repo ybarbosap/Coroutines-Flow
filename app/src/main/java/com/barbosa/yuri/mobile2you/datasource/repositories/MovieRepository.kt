@@ -1,4 +1,4 @@
-package com.barbosa.yuri.mobile2you.features.moviedetail.repository
+package com.barbosa.yuri.mobile2you.datasource.repositories
 
 import com.barbosa.yuri.mobile2you.datasource.RetrofitClient
 import com.barbosa.yuri.mobile2you.datasource.TheMovieDbApi
@@ -16,6 +16,6 @@ class MovieRepository {
     fun getSimilarMovies(movieId: Int): SimilarMovies? {
         val service = RetrofitClient.instance.create(TheMovieDbApi::class.java)
             .getSimilar(movieId)
-        return  service.execute().body()
+        return service.execute().body()
     }
 }

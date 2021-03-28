@@ -5,7 +5,6 @@ import com.barbosa.yuri.mobile2you.models.SimilarMovies
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface TheMovieDbApi {
     @GET("movie/{id}")
