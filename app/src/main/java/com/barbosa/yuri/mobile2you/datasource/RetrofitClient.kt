@@ -1,5 +1,6 @@
 package com.barbosa.yuri.mobile2you.datasource
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,6 +17,7 @@ object RetrofitClient {
             .addInterceptor { chain ->
                 val original = chain.request()
 
+                Log.d("OKHTTP", original.url().toString())
                 val url = original.url().newBuilder()
                     .addQueryParameter("api_key", API_KEY)
                     .build()

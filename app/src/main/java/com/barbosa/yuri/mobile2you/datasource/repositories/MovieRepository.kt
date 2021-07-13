@@ -2,20 +2,19 @@ package com.barbosa.yuri.mobile2you.datasource.repositories
 
 import com.barbosa.yuri.mobile2you.datasource.RetrofitClient
 import com.barbosa.yuri.mobile2you.datasource.TheMovieDbApi
-import com.barbosa.yuri.mobile2you.models.Movie
-import com.barbosa.yuri.mobile2you.models.SimilarMovies
+import com.barbosa.yuri.mobile2you.datasource.models.Movie
+import com.barbosa.yuri.mobile2you.datasource.models.SimilarMovies
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-// TODO: Criar cache
 class MovieRepository {
-    fun getMovie(movieId: Int): Movie? {
-        val service = RetrofitClient.instance.create(TheMovieDbApi::class.java)
-            .getMovie(movieId)
-        return service.execute().body()
+    private val service = RetrofitClient.instance.create(TheMovieDbApi::class.java)
+
+    fun getMovie(movieId: Int): Flow<Movie> = flow {
+        emit(service.getMovie(movieId))
     }
 
-    fun getSimilarMovies(movieId: Int): SimilarMovies? {
-        val service = RetrofitClient.instance.create(TheMovieDbApi::class.java)
-            .getSimilar(movieId)
-        return service.execute().body()
+    fun getSimilarMovies(movieId: Int): Flow<SimilarMovies> = flow {
+        emit(service.getSimilar(movieId))
     }
 }

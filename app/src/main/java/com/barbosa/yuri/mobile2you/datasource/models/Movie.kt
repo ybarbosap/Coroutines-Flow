@@ -1,4 +1,4 @@
-package com.barbosa.yuri.mobile2you.models
+package com.barbosa.yuri.mobile2you.datasource.models
 
 import com.google.gson.annotations.SerializedName
 
@@ -28,7 +28,7 @@ data class Movie(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: Any,
+    val posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")

@@ -1,4 +1,4 @@
-package com.barbosa.yuri.mobile2you.models
+package com.barbosa.yuri.mobile2you.datasource.models
 
 import com.google.gson.annotations.SerializedName
 
