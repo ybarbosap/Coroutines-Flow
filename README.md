@@ -2,13 +2,10 @@
 
 Projeto desenvolvido no desafio de Android da empresa Mobile2You 
 
-- Arquitetura MVP
+- Arquitetura MVI
 - Clean
-- Retrofit2
-- Picasso
-- Coroutines
+- Coroutines/Flow/StateFlow
 - ViewBinding 
-- Testes unitários
 
 ![](https://github.com/ybarbosap/Mobile2You/blob/main/screenshot/screenshot.png?raw=true)
 
